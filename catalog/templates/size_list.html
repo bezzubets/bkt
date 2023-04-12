@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="col-md-4">
+    <ul class="list-group" style="margin-left: 30px;margin-right: 1150px; background-color: aquamarine">
+        {% for size in size_list %}
+        <a class="nav-link" href="{{size.pk}}">{{size.size}}</a>
+        {% endfor %}
+        <a class="nav-link" href="/catalogue">В начало</a>
+        <a class="nav-link" href="/size_list">К выбору размера</a>
+    </ul>
+</div>
+{% for item in product %}
+<div class="card text-center mt-2">
+    <h5 class="card-title">{{ item.brand }} {{ item.art }}</h5>
+    <p class="card-text">{{ item.price }}</p>
+    <p class="card-text">Размеры: {{ item.size.all|join:", " }}</p>
+    <p class="card-text">Цвет: {{ item.color.all|join:", " }}</p>
+    <img src="{{item.pic.url}}" style="align-self:center" width="10%" height="10%" alt="">
+    <br>
+</div>
+<a href="{{ item.get_absolute_url }}" style="margin-left: 450px" class="btn btn-primary col-md-4">Подробно</a>
+{% endfor%}
+{% endblock %}

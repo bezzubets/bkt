@@ -1,0 +1,32 @@
+{% extends 'base 2.html' %}
+{% load static %}
+{% block content %}
+<h3 style="text-align: center; color: #5897fb">Расширенный поиск.</h3>
+<br>
+<hr>
+<form method="get">
+    {{ filtered_products.form.as_table }}
+    {% csrf_token %}
+    <input type="submit" class="btn-success" value="Выбрать">
+</form>
+<br>
+<hr>
+<br>
+<div style="text-align: center">
+    {% for item in filtered_products.qs %}
+    <h3>{{ item.title }}</h3>
+    <p><img src="{{item.pic.url}}" style="align-self:center" width="10%" height="10%" alt=""></p>
+    <p>Категория: {{ item.category }}</p>
+    <p>Производитель: {{ item.brand }}</p>
+    <p>Размер: {{ item.size.all|join:", " }}</p>
+    <p>Цвет: {{ item.color.all|join:", " }}</p>
+    <p>Сезон: {{ item.season.all|join:", "}}</p>
+    <br>
+    <a href="{{ item.get_absolute_url }}">
+        <button class="btn btn-primary col-md-2">Детальнее</button>
+    </a>
+    <br>
+    <hr>
+    {% endfor %}
+</div>
+{% endblock %}

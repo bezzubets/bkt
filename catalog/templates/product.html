@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="col-md-4"></div>
+<ul class="list-group" style="margin-left: 30px; margin-right: 1300px; background-color: aquamarine">
+    <a class="nav-link" href="/index">На главную</a>
+</ul>
+</div>
+<div class="row">
+    <div class="str">
+        <h4 class="nav-link" style="text-align: center" href="#">{{product.title}}</h4>
+        <h4 class="nav-link" style="text-align: center" href="#">Артикул: {{ product.art }}</h4>
+        <h4 class="nav-link" style="text-align: center" href="#">Производитель: {{product.brand}}</h4>
+        <a class="nav-link" style="text-align: center" href="#">Цена: {{ product.price}} грн.</a>
+        <a class="nav-link" style="text-align: center" href="#">
+            <img src="{{product.pic.url}}" style="align-self:center" width="20%" height="20%" alt="">
+        </a>
+        <div class="str" style="text-align: center">
+            <a class="nav-link">Размер: {{ product.size.all|join:", " }}</a>
+            <a class="nav-link">Цвет: {{ product.color.all|join:", " }}</a>
+            <a class="nav-link">Cостав: {{ product.components }}</a>
+            <a class="nav-link">Назначение: {{ product.description }}</a>
+        </div>
+        <br>
+        <form action="{% url 'cart_add' product.id %}" method="post" style="text-align: center">
+            {{ cart_product_form }}
+            {% csrf_token %}
+            <input type="submit" value="Добавить в корзину">
+        </form>
+    </div>
+</div>
+<br>
+{% endblock %}

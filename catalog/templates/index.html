@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for item in products %}
+<div class="col-12">
+    <h3 class="nav-link" style="text-align: center" href="#">{{item.title}}</h3>
+    <a class="nav-link" style="text-align: center" href="#">{{ item.people.all|join:", " }}</a>
+    <h3 class="nav-link" style="text-align: center" href="#">{{item.brand}}</h3>
+    {% load static %}
+    <a class="nav-link" style="text-align: center" href="#">
+        <img src="{{item.pic}}" style="align-self:center" width="10%" height="10%" alt="">
+    </a>
+
+    <a class="nav-link" style="text-align: center" href="#">{{ item.color.all|join:", " }}</a>
+</div>
+{% endfor %}
+
+{% endblock %}

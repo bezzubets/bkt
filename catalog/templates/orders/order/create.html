@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 style="text-align: center">Оформление заказа.</h1>
+<div class="order-info">
+    <h3 class="head" , style="text-align: center">Ваш заказ.</h3>
+    <br>
+
+    <ul style="text-align: center">
+        {% for item in cart %}
+        <p>
+            {{item.product.title}}, {{item.product.brand}} - {{item.quantity}} шт.
+            <span>{{item.total.price}}</span>
+        </p>
+        {% endfor %}
+    </ul>
+    <hr>
+    <p style="text-align: center">Всего, на сумму: {{cart.get_total_price}} грн.</p>
+</div>
+
+<form action="." method="post" class="order-form">
+    {{form.as_p}}
+    <p><input type="submit" value="Заказать"></p>
+    {% csrf_token %}
+</form>
+{% endblock %}}

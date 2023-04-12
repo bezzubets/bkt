@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+Корзина покупок
+{% block content %}
+<div class="basket" style="text-align: center">
+    <table class="cart">
+        <thead>
+        <tr>
+            <th>Артикул</th>
+            <th>Наименование</th>
+            <th>Бренд</th>
+            <th>Удалить</th>
+            <th>Количество</th>
+            <th>Цена</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+        {% with product=item.product %}
+        <tr>
+            <td>
+                {{ product.art }}
+            </td>
+            <td> {{ product.title }}</td>
+            <td>- {{ product.brand }}</td>
+            <td>
+                - <a href="{% url 'cart_remove' product.id %}">Удалить</a> -
+            </td>
+            <td>
+                <form action="{% url 'cart_add' product.id %}" method="POST">
+                    {{item.quantity}}
+                    {% csrf_token %}
+                </form>
+            </td>
+            <td class="num">{{ item.price }} грн.</td>
+        </tr>
+        {% endwith %}
+        {% endfor %}
+        <tr class="total">
+            <td><b>К оплате</b></td>
+            <td colspan="4"></td>
+            <td class="num"><strong>{{ cart.get_total_price }} грн.</strong></td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="text-right">
+        <a href="{% url 'catalogue' %}" class="button light">Продолжить покупки</a>
+        |
+        <a href="{% url 'order_create' %}" class="button">Оформить заказ</a>
+    </p>
+</div>
+{% endblock %}
